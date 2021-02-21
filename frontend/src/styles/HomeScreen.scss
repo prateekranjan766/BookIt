@@ -1,0 +1,195 @@
+.landing__section {
+  background-image: url('../landing-background.jpg');
+  background-size: cover;
+  background-position: left top;
+  height: 100vh;
+  width: 100%;
+  padding-bottom: 5rem;
+
+  &__search {
+    margin: 3rem auto;
+    width: 80%;
+    height: 4rem;
+    border-radius: 50px;
+    font-size: 1.6rem;
+    padding-left: 2rem;
+  }
+
+  &__heading {
+    font-family: 'Vollkorn', serif;
+    width: 52.7rem;
+    font-size: 6.5rem;
+    margin-top: 7rem;
+    margin-left: 15rem;
+    line-height: 94.5%;
+    /* or 61px */
+
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  &__text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    width: 45.8rem;
+    font-size: 18px;
+    line-height: 125.5%;
+    /* or 23px */
+
+    letter-spacing: 0.06em;
+    margin-top: 3rem;
+    margin-left: 15rem;
+    color: #a7acb2;
+  }
+
+  &__button {
+    background: rgba(165, 96, 61, 0.85);
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    width: 25rem;
+    height: 6rem;
+    font-size: 1.8rem;
+    margin-top: 3rem;
+    margin-left: 15rem;
+    font-family: inherit;
+  }
+}
+.trending__section {
+  &__heading {
+    font-family: 'Vollkorn', serif;
+    width: 52.7rem;
+    font-size: 5rem;
+    margin: 4rem auto 0 auto;
+    line-height: 94.5%;
+    /* or 61px */
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+  &__text {
+    width: 45.8rem;
+    font-size: 18px;
+    line-height: 125.5%;
+    text-align: center;
+    /* or 23px */
+
+    letter-spacing: 0.06em;
+    margin: 1.5rem auto;
+    color: #a7acb2;
+  }
+  &__tabs-panel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  &__tabs {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 1.6rem;
+    color: #8c8c8c;
+    cursor: pointer;
+    &-active {
+      border-bottom: 1px solid #333;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+  &__horizontal-slider {
+    display: flex;
+    overflow-x: scroll;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__card {
+    min-width: 25%;
+    margin-right: 3rem;
+    font-size: 2rem;
+    // &--card__title {
+    //   width: 70%;
+    // }
+    &--image {
+      height: 40rem;
+    }
+  }
+  &__button {
+    background-color: #ffffff;
+    border: 1px solid #a0a5a4;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    text-align: center;
+
+    &--left {
+      position: absolute;
+      top: 22rem;
+      left: 0;
+      z-index: 100;
+    }
+    &--right {
+      position: absolute;
+      top: 22rem;
+      right: 0;
+      z-index: 100;
+    }
+    &--main {
+      display: block;
+      font-size: 1.8rem;
+      width: 25rem;
+      padding: 1.5rem 5rem;
+      border-radius: 6px;
+      margin: auto;
+      margin-bottom: 10rem;
+    }
+  }
+}
+.price {
+  position: absolute;
+  top: 2.7rem;
+  right: 2rem;
+}
+.banner__section {
+  //   background-color: rgba(142, 85, 56, 0.85);
+  min-height: 90vh;
+  background-image: linear-gradient(
+      -105deg,
+      rgba(142, 85, 56, 0.85) 0%,
+      rgba(142, 85, 56, 0.85) 50%,
+      transparent 50%
+    ),
+    url('../alfons-morales-YLSwjSy7stw-unsplash.jpg');
+  background-size: cover;
+  &__heading {
+    font-family: 'Vollkorn', serif;
+    width: 52.7rem;
+    font-size: 6.5rem;
+    padding-top: 22rem;
+    margin-left: 58%;
+    line-height: 94.5%;
+    /* or 61px */
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  &__text {
+    font-family: Roboto;
+    font-style: normal;
+    width: 45.8rem;
+    font-size: 18px;
+    line-height: 125.5%;
+    /* or 23px */
+
+    letter-spacing: 0.06em;
+    margin-top: 3rem;
+    margin-left: 58%;
+    color: #f4f4f4;
+  }
+  &__button {
+    margin-left: 58%;
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+    padding: 1rem 5rem;
+  }
+}

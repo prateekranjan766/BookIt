@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+.navbar__brand {
+  font-size: 3.5rem;
+}
+.nav {
+  font-size: 1.7rem;
+  color: #fff;
+}
+.container {
+  min-width: 85%;
+}
+.row {
+  position: relative;
+}
+footer {
+  background-color: #333;
+  min-height: 40rem;
+}
+.footer_link {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 2rem;
+  color: #fff;
+  margin-right: 3rem;
+}
+.icon__section {
+  display: flex;
+  justify-content: center;
+}
+.footer__icon {
+  color: #f4f4f4;
+  font-size: 2rem;
+  margin-right: 2.2rem;
+}
+.copyright__text {
+  color: #fff;
+  display: block;
+  margin: auto;
+  font-size: 1.6rem;
+  border-top: 1px solid #f4f4f4;
+  padding-top: 0.5rem;
+}
+.default-font {
+  font-size: 1.6rem;
+}

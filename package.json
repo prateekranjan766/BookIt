@@ -1,0 +1,15 @@
+{
+  "name": "bookit",
+  "version": "1.0.0",
+  "description": "An online book selling app.",
+  "main": "server.js",
+  "dependencies": {
+    "react-bootstrap": "^1.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Prateek Ranjan",
+  "license": "ISC"
+}
