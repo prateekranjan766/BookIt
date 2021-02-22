@@ -19,7 +19,11 @@ const Footer = () => {
               It
             </span>
           </Col>
-          <Col md={6} className='ml-auto py-4 text-right'>
+          <Col
+            md={6}
+            style={{ display: 'block' }}
+            className='ml-auto py-4 text-right'
+          >
             <a href='#' className='footer_link'>
               Our Promise
             </a>

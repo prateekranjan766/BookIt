@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 const Header = () => {
   return (
     <Container>
-      <Navbar variant='dark'>
+      <Navbar variant='dark' collapseOnSelect expand='lg'>
         <Navbar.Brand className='navbar__brand' href='#home'>
           <span style={{ color: '#4F879D', fontWeight: '500' }}>Book</span>
           <span style={{ color: '#fff' }}>It</span>

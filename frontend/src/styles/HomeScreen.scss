@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 .landing__section {
   background-image: url('../landing-background.jpg');
   background-size: cover;
@@ -19,27 +21,42 @@
     font-family: 'Vollkorn', serif;
     width: 52.7rem;
     font-size: 6.5rem;
-    margin-top: 7rem;
-    margin-left: 15rem;
+    margin: 5rem 0 0 15rem;
     line-height: 94.5%;
-    /* or 61px */
-
     letter-spacing: -0.01em;
     color: #fff;
+
+    @include respond(tab-land) {
+      margin-left: 12rem;
+    }
+    @include respond(tab-port) {
+      margin: 5rem auto 0 auto;
+      text-align: center;
+      letter-spacing: 0;
+    }
+    @include respond(phone) {
+      font-size: 5rem;
+    }
   }
   &__text {
     font-family: Roboto;
     font-style: normal;
-    font-weight: bold;
     width: 45.8rem;
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 125.5%;
     /* or 23px */
 
     letter-spacing: 0.06em;
-    margin-top: 3rem;
-    margin-left: 15rem;
+    margin: 3rem auto 0 15rem;
     color: #a7acb2;
+    @include respond(tab-land) {
+      margin-left: 12rem;
+    }
+    @include respond(tab-port) {
+      margin: 2rem auto;
+      text-align: center;
+      letter-spacing: 0;
+    }
   }
 
   &__button {
@@ -53,6 +70,14 @@
     margin-top: 3rem;
     margin-left: 15rem;
     font-family: inherit;
+    @include respond(tab-land) {
+      margin-left: 12rem;
+    }
+    @include respond(tab-port) {
+      margin: 2rem auto;
+      text-align: center;
+      letter-spacing: 0;
+    }
   }
 }
 .trending__section {
@@ -62,13 +87,12 @@
     font-size: 5rem;
     margin: 4rem auto 0 auto;
     line-height: 94.5%;
-    /* or 61px */
     letter-spacing: -0.01em;
     text-align: center;
   }
   &__text {
     width: 45.8rem;
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 125.5%;
     text-align: center;
     /* or 23px */
@@ -106,7 +130,7 @@
 
   &__card {
     min-width: 25%;
-    margin-right: 3rem;
+    margin-right: 2rem;
     font-size: 2rem;
     // &--card__title {
     //   width: 70%;
@@ -128,12 +152,18 @@
       top: 22rem;
       left: 0;
       z-index: 100;
+      @include respond(tab-port) {
+        display: none;
+      }
     }
     &--right {
       position: absolute;
       top: 22rem;
       right: 0;
       z-index: 100;
+      @include respond(tab-port) {
+        display: none;
+      }
     }
     &--main {
       display: block;
@@ -152,7 +182,6 @@
   right: 2rem;
 }
 .banner__section {
-  //   background-color: rgba(142, 85, 56, 0.85);
   min-height: 90vh;
   background-image: linear-gradient(
       -105deg,
@@ -162,6 +191,19 @@
     ),
     url('../alfons-morales-YLSwjSy7stw-unsplash.jpg');
   background-size: cover;
+
+  @include respond(tab-land) {
+    min-height: 60vh;
+  }
+  @include respond(tab-port) {
+    min-height: 50vh;
+    background-image: linear-gradient(
+        to bottom right,
+        rgba(142, 85, 56, 0.685),
+        rgba(142, 85, 56, 0.85)
+      ),
+      url('../alfons-morales-YLSwjSy7stw-unsplash.jpg');
+  }
   &__heading {
     font-family: 'Vollkorn', serif;
     width: 52.7rem;
@@ -169,27 +211,44 @@
     padding-top: 22rem;
     margin-left: 58%;
     line-height: 94.5%;
-    /* or 61px */
     letter-spacing: -0.01em;
     color: #fff;
+    @include respond(tab-port) {
+      margin: auto;
+      padding-top: 12rem;
+      text-align: center;
+    }
+    @include respond(phone) {
+      font-size: 5rem;
+      width: 42.7rem;
+    }
   }
   &__text {
     font-family: Roboto;
     font-style: normal;
     width: 45.8rem;
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 125.5%;
-    /* or 23px */
-
     letter-spacing: 0.06em;
-    margin-top: 3rem;
-    margin-left: 58%;
+    margin: 3rem 0 0 58%;
     color: #f4f4f4;
+
+    @include respond(tab-port) {
+      margin: 3rem auto 0 auto;
+      text-align: center;
+    }
+    @include respond(phone) {
+      font-size: 1.6rem;
+    }
   }
   &__button {
-    margin-left: 58%;
     font-size: 1.6rem;
-    margin-top: 2.5rem;
+    margin: 2.5rem 0 0 58%;
     padding: 1rem 5rem;
+
+    @include respond(tab-port) {
+      margin: 3rem auto 0 auto;
+      text-align: center;
+    }
   }
 }
