@@ -1,15 +1,21 @@
-import bgImage from './landing-background.jpg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   return (
-    <div className='App'>
-      <HomeScreen />
+    <>
+      <Switch>
+        <Route path='/' component={Header} />
+      </Switch>
+      <main>
+        <Switch>
+          <Route exact path='/' component={HomeScreen} />
+        </Switch>
+      </main>
       <Footer />
-      {/* <img src={bgImage} className='landing-background'></img> */}
-    </div>
+    </>
   );
 }
 

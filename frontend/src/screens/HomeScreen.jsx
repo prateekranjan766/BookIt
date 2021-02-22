@@ -8,38 +8,35 @@ import {
   Col,
   Image,
 } from 'react-bootstrap';
-import bannerImage from '../alfons-morales-YLSwjSy7stw-unsplash.jpg';
-import Header from './../components/Header';
 import Rating from './../components/Rating';
 import './../styles/HomeScreen.scss';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { listTrendingBooks } from '../actions/bookActions';
 import Rupee from './../components/Rupee';
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const bookTrendingList = useSelector((state) => state.bookTrendingList);
+  const { loading, error, books } = bookTrendingList;
   const bookTypes = ['Novels', 'Comics', 'Educational', 'Biography'];
   const [toggleTab, setToggleTab] = useState(bookTypes[0]);
-  const [books, setBooks] = useState([]);
   const ref = useRef('null');
 
-  const fetchBooks = async () => {
-    const { data } = await axios.get(`/api/books/${toggleTab.toLowerCase()}`);
-    console.log(data);
-    setBooks(data);
-  };
-
   useEffect(() => {
-    fetchBooks();
-  }, [toggleTab]);
+    dispatch(listTrendingBooks(toggleTab.toLowerCase(), 5));
+  }, [dispatch, toggleTab]);
 
   return (
     <div>
       <div className='landing__section'>
-        <Header />
+        {/* <Header /> */}
         <Container>
-          <FormControl
-            className='landing__section__search'
-            placeholder='What are you looking for?'
-          ></FormControl>
+          <Row className='landing__section__search-container'>
+            <FormControl
+              className='landing__section__search'
+              placeholder='What are you looking for?'
+            ></FormControl>
+          </Row>
           <Row>
             <h1 className='landing__section__heading'>
               What books are you looking for?

@@ -1,6 +1,6 @@
 @import './styles/mixins.scss';
 
-body {
+* {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
@@ -24,13 +24,6 @@ html {
   }
 }
 
-.navbar__brand {
-  font-size: 3.5rem;
-}
-.nav {
-  font-size: 1.7rem;
-  color: #fff;
-}
 .container {
   min-width: 85%;
 }
@@ -38,7 +31,7 @@ html {
   position: relative;
 }
 footer {
-  background-color: #333;
+  background-color: #000;
   min-height: 40rem;
 }
 .footer_link {

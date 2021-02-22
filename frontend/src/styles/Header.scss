@@ -1,0 +1,21 @@
+.navbar__brand {
+  font-size: 3.5rem;
+}
+.nav {
+  font-size: 1.7rem;
+  color: #fff;
+}
+
+.header__navbar {
+  width: 100%;
+  z-index: 12;
+  &__home-screen {
+    position: absolute;
+    top: 0;
+  }
+  &__normal-screen {
+    position: fixed;
+    top: 0;
+    background-color: red;
+  }
+}

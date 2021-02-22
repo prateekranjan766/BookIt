@@ -7,6 +7,11 @@
   height: 100vh;
   width: 100%;
   padding-bottom: 5rem;
+  // margin-top: -3rem;
+
+  &__search-container {
+    padding-top: 10rem;
+  }
 
   &__search {
     margin: 3rem auto;
@@ -132,6 +137,7 @@
     min-width: 25%;
     margin-right: 2rem;
     font-size: 2rem;
+    border: none;
     // &--card__title {
     //   width: 70%;
     // }
@@ -189,7 +195,7 @@
       rgba(142, 85, 56, 0.85) 50%,
       transparent 50%
     ),
-    url('../alfons-morales-YLSwjSy7stw-unsplash.jpg');
+    url('../alfons-morales-YLSwjSy7stw-unsplash-min.jpg');
   background-size: cover;
 
   @include respond(tab-land) {
@@ -202,7 +208,7 @@
         rgba(142, 85, 56, 0.685),
         rgba(142, 85, 56, 0.85)
       ),
-      url('../alfons-morales-YLSwjSy7stw-unsplash.jpg');
+      url('../alfons-morales-YLSwjSy7stw-unsplash-min.jpg');
   }
   &__heading {
     font-family: 'Vollkorn', serif;
