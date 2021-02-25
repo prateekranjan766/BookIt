@@ -1,33 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import '../styles/Header.scss';
+import SearchBox from './SearchBox';
 
 const Header = ({ location }) => {
-  console.log(location);
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset >= 50) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+    console.log(offset);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
   return (
     <header
       className={
         location.pathname === '/'
           ? 'header__navbar header__navbar__home-screen'
-          : 'header__navbar header__navbar__normal-screen'
+          : scrolled === false
+          ? 'header__navbar header__navbar__normal-screen'
+          : 'header__navbar header__navbar__normal-screen header__navbar__normal-screen__scrolled'
       }
     >
       <Container>
-        <Navbar variant='dark' collapseOnSelect expand='lg'>
+        <Navbar collapseOnSelect expand='lg'>
           <LinkContainer to='/'>
             <Navbar.Brand className='navbar__brand'>
-              <span style={{ color: '#4F879D', fontWeight: '500' }}>Book</span>
-              <span style={{ color: '#fff' }}>It</span>
+              <span
+                className={
+                  location.pathname === '/'
+                    ? 'brand-name-primary__home-screen'
+                    : 'brand-name-primary__normal-screen'
+                }
+              >
+                Book
+              </span>
+              <span
+                className={
+                  location.pathname === '/'
+                    ? 'brand-name-secondary__home-screen'
+                    : 'brand-name-secondary__normal-screen'
+                }
+              >
+                It
+              </span>
             </Navbar.Brand>
           </LinkContainer>
+
+          {location.pathname !== '/' && <SearchBox />}
+
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ml-auto nav'>
-              <LinkContainer to='/login'>
+            <Nav className='nav ml-auto'>
+              <LinkContainer
+                to='/login'
+                className={
+                  location.pathname === '/' ? 'text-light' : 'text-dark'
+                }
+              >
                 <Nav.Link>SignIn</Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/cart'>
+              <LinkContainer
+                to='/cart'
+                className={
+                  location.pathname === '/' ? 'text-light' : 'text-dark'
+                }
+              >
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
               {/* <NavDropdown title='Dropdown' id='basic-nav-dropdown'>

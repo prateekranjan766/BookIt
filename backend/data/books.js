@@ -54,7 +54,7 @@ const books = [
     genre: 'fiction',
     mrp: 350,
     discount: 46, //in percent
-    image: '/images/the alchemist.jpeg',
+    image: '/images/the_alchemist.jpeg',
     numReviews: 45987,
     language: 'English',
     dimensions: {
@@ -230,7 +230,7 @@ const books = [
     genre: 'fiction',
     mrp: 350,
     discount: 46, //in percent
-    image: '/images/the alchemist.jpg',
+    image: '/images/the_alchemist.jpeg',
     numReviews: 45987,
     language: 'English',
     dimensions: {

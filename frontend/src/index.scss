@@ -23,7 +23,9 @@ html {
     font-size: 75%; //1rem = 12px
   }
 }
-
+main {
+  min-height: 80vh;
+}
 .container {
   min-width: 85%;
 }

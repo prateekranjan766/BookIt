@@ -16,6 +16,8 @@
   &__search {
     margin: 3rem auto;
     width: 80%;
+    margin: 0 auto;
+    align-items: center;
     height: 4rem;
     border-radius: 50px;
     font-size: 1.6rem;
@@ -134,15 +136,34 @@
   }
 
   &__card {
-    min-width: 25%;
+    // min-width: 25%;
+    width: 105%;
     margin-right: 2rem;
     font-size: 2rem;
     border: none;
-    // &--card__title {
-    //   width: 70%;
-    // }
+
+    @include respond(tab-port) {
+      margin-right: 0rem;
+      width: 115%;
+    }
+    @include respond(phone) {
+      margin-right: 0rem;
+      width: 120%;
+    }
+
     &--image {
       height: 40rem;
+    }
+
+    &--rating {
+      position: absolute;
+      top: 0.1rem;
+      right: 2rem;
+      @include respond(tab-port) {
+        position: static;
+        margin-top: -1rem;
+        font-size: 1rem;
+      }
     }
   }
   &__button {
@@ -186,6 +207,11 @@
   position: absolute;
   top: 2.7rem;
   right: 2rem;
+  @include respond(tab-port) {
+    position: static;
+    margin-top: -1rem;
+    font-size: 1.6rem;
+  }
 }
 .banner__section {
   min-height: 90vh;

@@ -1,0 +1,56 @@
+@import './mixins.scss';
+.sorting__row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  margin-left: 0rem;
+}
+.sorting__col {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.books__section {
+  overflow: hidden;
+  margin-right: 1rem;
+  margin-bottom: 15rem;
+}
+.book-screen {
+  &__container {
+    padding-top: 10rem;
+  }
+
+  &__heading {
+    font-family: 'Vollkorn', serif;
+    font-size: 4rem;
+    margin: auto;
+  }
+
+  &__filter--button {
+    padding: 0.8rem 2rem;
+    font-size: 1.6rem;
+    border: 1px solid #000;
+    color: #000 !important;
+  }
+
+  &__count-in-stock {
+    display: inline-block;
+    color: #000;
+    font-size: 1.4rem;
+    align-self: center;
+    padding-top: 1rem;
+    padding-left: 1rem;
+  }
+
+  &__sortby {
+    margin-left: 1rem;
+    font-size: 1.6rem;
+    width: 70%;
+    height: 4rem;
+    display: inline-block;
+
+    @include respond(phone) {
+      margin-left: 0.5rem;
+      width: 60%;
+    }
+  }
+}

@@ -82,15 +82,14 @@ const HomeScreen = () => {
         <Row>
           <div ref={ref} className='trending__section__horizontal-slider'>
             {books.map((book) => (
-              <Col key={book.title} xs={12} sm={6} lg={4} xl={3}>
+              <Col key={book._id} xs={6} md={4} xl={3}>
                 <Card className='trending__section__card p-3'>
                   <Card.Img
                     className='trending__section__card--image'
                     src={book.image}
-                    fluid
                   />
                   <Row>
-                    <Col md={8}>
+                    <Col sm={12} md={8}>
                       <Card.Title
                         style={{ marginTop: '1rem' }}
                         className='default-font'
@@ -99,8 +98,8 @@ const HomeScreen = () => {
                           (book.title.length > 40 ? '...' : '')}
                       </Card.Title>
                     </Col>
-                    <Col md={4}>
-                      <Card.Title className='py-3'>
+                    <Col sm={12} md={4}>
+                      <Card.Title className='py-3 trending__section__card--rating'>
                         <Rating value={book.rating}></Rating>
                       </Card.Title>
                       <Card.Title className='price'>
