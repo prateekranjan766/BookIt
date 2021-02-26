@@ -6,8 +6,9 @@ import {
   Card,
   Row,
   Col,
-  Image,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import Rating from './../components/Rating';
 import './../styles/HomeScreen.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,7 +49,12 @@ const HomeScreen = () => {
             </h3>
           </Row>
           <Row>
-            <Button className='landing__section__button'>View All Books</Button>
+            <Link
+              to='/books'
+              className='btn btn-secondary py-4 landing__section__button'
+            >
+              View All Books
+            </Link>
           </Row>
         </Container>
       </div>
@@ -83,32 +89,34 @@ const HomeScreen = () => {
           <div ref={ref} className='trending__section__horizontal-slider'>
             {books.map((book) => (
               <Col key={book._id} xs={6} md={4} xl={3}>
-                <Card className='trending__section__card p-3'>
-                  <Card.Img
-                    className='trending__section__card--image'
-                    src={book.image}
-                  />
-                  <Row>
-                    <Col sm={12} md={8}>
-                      <Card.Title
-                        style={{ marginTop: '1rem' }}
-                        className='default-font'
-                      >
-                        {book.title.substring(0, 40) +
-                          (book.title.length > 40 ? '...' : '')}
-                      </Card.Title>
-                    </Col>
-                    <Col sm={12} md={4}>
-                      <Card.Title className='py-3 trending__section__card--rating'>
-                        <Rating value={book.rating}></Rating>
-                      </Card.Title>
-                      <Card.Title className='price'>
-                        <Rupee />
-                        {book.mrp.toFixed(2)}
-                      </Card.Title>
-                    </Col>
-                  </Row>
-                </Card>
+                <LinkContainer to={`/books/${book._id}`}>
+                  <Card className='trending__section__card p-3'>
+                    <Card.Img
+                      className='trending__section__card--image'
+                      src={book.image}
+                    />
+                    <Row>
+                      <Col sm={12} md={8}>
+                        <Card.Title
+                          style={{ marginTop: '1rem' }}
+                          className='default-font'
+                        >
+                          {book.title.substring(0, 40) +
+                            (book.title.length > 40 ? '...' : '')}
+                        </Card.Title>
+                      </Col>
+                      <Col sm={12} md={4}>
+                        <Card.Title className='py-3 trending__section__card--rating'>
+                          <Rating value={book.rating}></Rating>
+                        </Card.Title>
+                        <Card.Title className='price'>
+                          <Rupee />
+                          {book.mrp.toFixed(2)}
+                        </Card.Title>
+                      </Col>
+                    </Row>
+                  </Card>
+                </LinkContainer>
               </Col>
             ))}
           </div>
@@ -131,13 +139,12 @@ const HomeScreen = () => {
             ></i>
           </Button>
         </Row>
-        <Button
-          type='button'
-          variant='outline-dark'
-          className='trending__section__button--main'
+        <Link
+          to='/books'
+          className='btn btn-outline-dark trending__section__button--main'
         >
           Shop All Trending
-        </Button>
+        </Link>
       </Container>
 
       <div className='banner__section'>
@@ -155,13 +162,12 @@ const HomeScreen = () => {
             </h3>
           </Row>
           <Row>
-            <Button
-              className='banner__section__button'
-              variant='outline-light'
-              type='button'
+            <Link
+              to='/books'
+              className='btn btn-outline-light banner__section__button'
             >
               Shop All
-            </Button>
+            </Link>
           </Row>
         </Container>
       </div>
