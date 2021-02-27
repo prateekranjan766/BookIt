@@ -51,7 +51,7 @@ const HomeScreen = () => {
           <Row>
             <Link
               to='/books'
-              className='btn btn-secondary py-4 landing__section__button'
+              className='btn btn-outline-light landing__section__button'
             >
               View All Books
             </Link>

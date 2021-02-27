@@ -14,7 +14,6 @@ const Header = ({ location }) => {
     } else {
       setScrolled(false);
     }
-    console.log(offset);
   };
 
   window.addEventListener('scroll', handleScroll);

@@ -77,6 +77,7 @@
     margin-top: 3rem;
     margin-left: 15rem;
     font-family: inherit;
+    padding-top: 1.7rem;
     @include respond(tab-land) {
       margin-left: 12rem;
     }
@@ -102,8 +103,6 @@
     font-size: 1.8rem;
     line-height: 125.5%;
     text-align: center;
-    /* or 23px */
-
     letter-spacing: 0.06em;
     margin: 1.5rem auto;
     color: #a7acb2;

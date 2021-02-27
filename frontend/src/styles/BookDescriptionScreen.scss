@@ -1,0 +1,74 @@
+@import './mixins.scss';
+
+.book-description {
+  &__container {
+    padding: 13rem 0 10rem 0;
+    @include respond(phone) {
+      width: 100%;
+    }
+  }
+
+  &__image {
+    height: 60rem;
+  }
+
+  &__content {
+    @include respond(phone) {
+      padding-top: 3rem;
+      padding-left: 8rem;
+    }
+  }
+
+  &__title {
+    font-family: 'Vollkorn', serif;
+    font-weight: 300;
+    font-size: 4rem;
+    letter-spacing: -0.01em;
+  }
+
+  &__rating {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  &__listgroup {
+    width: 70%;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    @include respond(phone) {
+      width: 85%;
+    }
+
+    & > .list-group-item:not(:last-child) {
+      // bootstrap class from Listgroup.Item
+      padding: 1rem 2rem;
+    }
+
+    &__button-container {
+      padding: 0;
+      border: none;
+      & > .btn-block {
+        border-radius: 6px;
+      }
+    }
+  }
+  &__tabs {
+    margin-right: 2%;
+    font-size: 1.6rem;
+    color: #8c8c8c;
+    cursor: pointer;
+    &-active {
+      color: #000;
+      border-bottom: 1px solid #000;
+    }
+    &-content {
+      width: 90%;
+    }
+  }
+}
+.book-description__rating > .rating span {
+  margin-right: 0.3rem;
+  font-size: 1.5rem;
+}
