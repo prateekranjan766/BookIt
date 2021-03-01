@@ -14,6 +14,8 @@ import './../styles/HomeScreen.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { listTrendingBooks } from '../actions/bookActions';
 import Rupee from './../components/Rupee';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -86,40 +88,46 @@ const HomeScreen = () => {
           ))}
         </Row>
         <Row>
-          <div ref={ref} className='trending__section__horizontal-slider'>
-            {books.map((book) => (
-              <Col key={book._id} xs={6} md={4} xl={3}>
-                <LinkContainer to={`/books/${book._id}`}>
-                  <Card className='trending__section__card p-3'>
-                    <Card.Img
-                      className='trending__section__card--image'
-                      src={book.image}
-                    />
-                    <Row>
-                      <Col sm={12} md={8}>
-                        <Card.Title
-                          style={{ marginTop: '1rem' }}
-                          className='default-font'
-                        >
-                          {book.title.substring(0, 40) +
-                            (book.title.length > 40 ? '...' : '')}
-                        </Card.Title>
-                      </Col>
-                      <Col sm={12} md={4}>
-                        <Card.Title className='py-3 trending__section__card--rating'>
-                          <Rating value={book.rating}></Rating>
-                        </Card.Title>
-                        <Card.Title className='price'>
-                          <Rupee />
-                          {book.mrp.toFixed(2)}
-                        </Card.Title>
-                      </Col>
-                    </Row>
-                  </Card>
-                </LinkContainer>
-              </Col>
-            ))}
-          </div>
+          {loading === true ? (
+            <Loader />
+          ) : error ? (
+            <Message>{error}</Message>
+          ) : (
+            <div ref={ref} className='trending__section__horizontal-slider'>
+              {books.map((book) => (
+                <Col key={book._id} xs={6} md={4} xl={3}>
+                  <LinkContainer to={`/books/${book._id}`}>
+                    <Card className='trending__section__card p-3'>
+                      <Card.Img
+                        className='trending__section__card--image'
+                        src={book.image}
+                      />
+                      <Row>
+                        <Col sm={12} md={8}>
+                          <Card.Title
+                            style={{ marginTop: '1rem' }}
+                            className='default-font'
+                          >
+                            {book.title.substring(0, 40) +
+                              (book.title.length > 40 ? '...' : '')}
+                          </Card.Title>
+                        </Col>
+                        <Col sm={12} md={4}>
+                          <Card.Title className='py-3 trending__section__card--rating'>
+                            <Rating value={book.rating}></Rating>
+                          </Card.Title>
+                          <Card.Title className='price'>
+                            <Rupee />
+                            {book.mrp.toFixed(2)}
+                          </Card.Title>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </LinkContainer>
+                </Col>
+              ))}
+            </div>
+          )}
           <Button
             className='trending__section__button trending__section__button--right'
             onClick={() => (ref.current.scrollLeft += 250)}
