@@ -1,0 +1,21 @@
+@import './mixins.scss';
+.cart {
+  &__container {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+
+  &__heading {
+    font-weight: 500;
+    font-size: 1.8rem;
+  }
+  &__price {
+    @include respond(phone) {
+      padding-top: 0rem;
+    }
+  }
+
+  &__quantity {
+    margin-left: 0;
+  }
+}

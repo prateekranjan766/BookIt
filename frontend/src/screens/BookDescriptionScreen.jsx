@@ -17,8 +17,9 @@ import BookSummary from './../components/BookSummary';
 import BookDetails from './../components/BookDetails';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { addToCart } from '../actions/cartActions';
 
-const BookDescriptionScreen = ({ match }) => {
+const BookDescriptionScreen = ({ match, history }) => {
   const tabs = ['Summary', 'Details', 'Reviews'];
   const [toggleTab, setToggleTab] = useState(tabs[0]);
   const [qty, setQty] = useState(1);
@@ -26,6 +27,11 @@ const BookDescriptionScreen = ({ match }) => {
 
   const bookDescription = useSelector((state) => state.bookDescription);
   const { book, loading, error } = bookDescription;
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(book._id, Number(qty)));
+    history.push('/cart');
+  };
 
   useEffect(() => {
     dispatch(getBookDescription(match.params.id));
@@ -120,6 +126,7 @@ const BookDescriptionScreen = ({ match }) => {
                     type='button'
                     className='btn-block default-font p-3'
                     disabled={book.countInStock === 0}
+                    onClick={addToCartHandler}
                   >
                     Add to Cart
                   </Button>
