@@ -6,7 +6,7 @@ const Message = ({ children, variant = 'danger' }) => {
     <Alert
       variant={variant}
       className='mx-auto default-font my-5'
-      style={{ width: '70%' }}
+      style={{ width: '100%' }}
     >
       {children}
     </Alert>

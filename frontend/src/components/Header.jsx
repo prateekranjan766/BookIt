@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
-import '../styles/Header.scss';
 import SearchBox from './SearchBox';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../actions/userActions';
+import '../styles/Header.scss';
 
 const Header = ({ location }) => {
   const [scrolled, setScrolled] = useState(false);
+
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -29,7 +35,11 @@ const Header = ({ location }) => {
       }
     >
       <Container>
-        <Navbar collapseOnSelect expand='lg'>
+        <Navbar
+          collapseOnSelect
+          expand='lg'
+          variant={location.pathname !== '/' ? 'light' : 'dark'}
+        >
           <LinkContainer to='/'>
             <Navbar.Brand className='navbar__brand'>
               <span
@@ -58,20 +68,29 @@ const Header = ({ location }) => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='nav ml-auto'>
-              <LinkContainer
-                to='/login'
-                className={
-                  location.pathname === '/' ? 'text-light' : 'text-dark'
-                }
-              >
-                <Nav.Link>SignIn</Nav.Link>
-              </LinkContainer>
-              <LinkContainer
-                to='/cart'
-                className={
-                  location.pathname === '/' ? 'text-light' : 'text-dark'
-                }
-              >
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
+                  <NavDropdown.Item className='smaller-font'>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className='smaller-font'
+                    onClick={() => dispatch(logout())}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer
+                  to='/login'
+                  className={
+                    location.pathname === '/' ? 'text-light' : 'text-dark'
+                  }
+                >
+                  <Nav.Link>SignIn</Nav.Link>
+                </LinkContainer>
+              )}
+              <LinkContainer to='/cart'>
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
               {/* <NavDropdown title='Dropdown' id='basic-nav-dropdown'>

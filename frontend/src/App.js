@@ -3,6 +3,7 @@ import HomeScreen from './screens/HomeScreen';
 import BookScreen from './screens/BookScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import BookDescriptionScreen from './screens/BookDescriptionScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -15,6 +16,7 @@ function App() {
       </Switch>
       <main>
         <Switch>
+          <Route exact path='/register' component={RegisterScreen} />
           <Route exact path='/login' component={LoginScreen} />
           <Route exact path='/cart' component={CartScreen} />
           <Route exact path='/books/:id' component={BookDescriptionScreen} />
