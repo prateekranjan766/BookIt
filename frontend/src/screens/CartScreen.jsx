@@ -12,10 +12,10 @@ import { Link } from 'react-router-dom';
 import '../styles/CartScreen.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import Rupee from '../components/Rupee';
-import { addToCart } from './../actions/cartActions';
+import { addToCart, removeFromCart } from './../actions/cartActions';
 import Message from '../components/Message';
 
-const CartScreen = () => {
+const CartScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -29,6 +29,9 @@ const CartScreen = () => {
     .reduce((acc, item) => acc + item.qty * item.mrp, 0)
     .toFixed(2);
 
+  const checkoutHandler = () => {
+    history.push('/login?redirect=shipping');
+  };
   return (
     <Container className='cart__container default-font'>
       {cartItems.length === 0 ? (
@@ -122,6 +125,7 @@ const CartScreen = () => {
                         <Button
                           type='button'
                           className='btn-block btn-dark py-3'
+                          onClick={() => dispatch(removeFromCart(item._id))}
                         >
                           <i className='fas fa-trash default-font'></i>
                         </Button>
@@ -193,10 +197,11 @@ const CartScreen = () => {
               <ListGroup.Item className='m-0 p-0 border-0'>
                 <Button
                   type='button'
-                  className='btn-block default-font py-4'
+                  className='btn-block default-font py-4 text-capitalize'
                   variant='dark'
+                  onClick={checkoutHandler}
                 >
-                  Place Order
+                  Proceed to checkout
                 </Button>
               </ListGroup.Item>
             </ListGroup>

@@ -4,6 +4,7 @@ import BookScreen from './screens/BookScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ShippingScreen from './screens/ShippingScreen';
 import BookDescriptionScreen from './screens/BookDescriptionScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -16,6 +17,7 @@ function App() {
       </Switch>
       <main>
         <Switch>
+          <Route exact path='/shipping' component={ShippingScreen} />
           <Route exact path='/register' component={RegisterScreen} />
           <Route exact path='/login' component={LoginScreen} />
           <Route exact path='/cart' component={CartScreen} />
