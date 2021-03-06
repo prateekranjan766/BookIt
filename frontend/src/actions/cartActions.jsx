@@ -3,6 +3,7 @@ import {
   CART_ADD_ITEMS,
   CART_REMOVE_ITEMS,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from '../constants/cartConstants';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -52,6 +53,14 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
 export const saveShippingAddress = (shippingAddress) => (dispatch) => {
   try {
     dispatch({ type: CART_SAVE_SHIPPING_ADDRESS, payload: shippingAddress });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const savePaymentMethod = (paymentMethod) => (dispatch) => {
+  try {
+    dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: paymentMethod });
   } catch (error) {
     console.log(error.message);
   }
