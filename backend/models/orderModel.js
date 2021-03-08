@@ -36,6 +36,22 @@ const orderSchema = mongoose.Schema(
       update_time: { type: String },
       email_address: { type: String },
     },
+    isDispatched: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    dispatchedAt: {
+      type: Date,
+    },
+    isShipped: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    shippedAt: {
+      type: Date,
+    },
     isPaid: {
       type: Boolean,
       required: true,

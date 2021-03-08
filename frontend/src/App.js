@@ -8,6 +8,7 @@ import ShippingScreen from './screens/ShippingScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import BookDescriptionScreen from './screens/BookDescriptionScreen';
+import OrderDetailsScreen from './screens/OrderDetailsScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
@@ -19,6 +20,7 @@ function App() {
       </Switch>
       <main>
         <Switch>
+          <Route exact path='/orders/:id' component={OrderDetailsScreen} />
           <Route exact path='/placeOrder' component={PlaceOrderScreen} />
           <Route exact path='/paymentMethod' component={PaymentMethodScreen} />
           <Route exact path='/shipping' component={ShippingScreen} />
