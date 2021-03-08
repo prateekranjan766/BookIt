@@ -49,6 +49,7 @@ const ShippingScreen = ({ history }) => {
             type='submit'
             variant='dark'
             className='default-font px-5 py-3 my-4'
+            disabled={paymentMethod === ''}
           >
             Continue
           </Button>

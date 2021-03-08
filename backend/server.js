@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import bookRoutes from './routes/bookRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/api/orders', orderRoutes);
 app.get('/', (req, res) => res.send('Api is running..'));
 
 app.use(notFound);

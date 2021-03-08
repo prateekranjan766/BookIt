@@ -5,6 +5,7 @@ import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import BookDescriptionScreen from './screens/BookDescriptionScreen';
 import Footer from './components/Footer';
@@ -18,6 +19,7 @@ function App() {
       </Switch>
       <main>
         <Switch>
+          <Route exact path='/placeOrder' component={PlaceOrderScreen} />
           <Route exact path='/paymentMethod' component={PaymentMethodScreen} />
           <Route exact path='/shipping' component={ShippingScreen} />
           <Route exact path='/register' component={RegisterScreen} />
