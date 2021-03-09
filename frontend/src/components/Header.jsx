@@ -68,7 +68,7 @@ const Header = ({ location }) => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='nav ml-auto'>
-              {userInfo ? (
+              {userInfo && userInfo.name ? (
                 <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
                   <NavDropdown.Item className='smaller-font'>
                     Profile

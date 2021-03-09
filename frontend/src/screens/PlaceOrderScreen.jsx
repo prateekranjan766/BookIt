@@ -19,6 +19,9 @@ const PlaceOrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, error, success, order } = orderCreate;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const totalDiscount = cartItems
     .reduce((acc, item) => acc + (item.qty * item.discount * item.mrp) / 100, 0)
     .toFixed(2);
@@ -28,6 +31,9 @@ const PlaceOrderScreen = ({ history }) => {
     .toFixed(2);
 
   useEffect(() => {
+    if (!userInfo || !userInfo.name) {
+      history.push('/login');
+    }
     if (success) {
       dispatch({ type: ORDER_CREATE_RESET });
       history.push(`/orders/${order._id}`);
@@ -35,7 +41,15 @@ const PlaceOrderScreen = ({ history }) => {
     if (!paymentMethod) {
       history.push('/paymentMethod');
     }
-  }, [shippingAddress, paymentMethod, history, success, order, dispatch]);
+  }, [
+    shippingAddress,
+    paymentMethod,
+    history,
+    success,
+    order,
+    dispatch,
+    userInfo,
+  ]);
 
   const placeOrderHandler = (e) => {
     e.preventDefault();

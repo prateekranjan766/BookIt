@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import FormContainer from './../components/FormContainer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from './../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import '../styles/LoginScreen.scss';
@@ -9,10 +9,19 @@ import '../styles/LoginScreen.scss';
 const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [postalCode, setPostalCode] = useState('');
+
+  useEffect(() => {
+    if (!userInfo || !userInfo.name) {
+      history.push('/login');
+    }
+  }, [history, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();

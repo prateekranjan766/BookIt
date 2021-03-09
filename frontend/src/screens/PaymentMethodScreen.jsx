@@ -14,17 +14,23 @@ const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo || !userInfo.name) {
+      history.push('/login');
+    }
+    if (!shippingAddress) {
+      history.push('/shipping');
+    }
+  }, [shippingAddress, userInfo, history]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeOrder');
   };
-
-  useEffect(() => {
-    if (!shippingAddress) {
-      history.push('/shipping');
-    }
-  }, [shippingAddress]);
 
   return (
     <Container className='login__screen__container'>
