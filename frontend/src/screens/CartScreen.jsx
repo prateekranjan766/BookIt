@@ -22,12 +22,17 @@ const CartScreen = ({ history }) => {
   const { cartItems } = cart;
 
   const totalDiscount = cartItems
-    .reduce((acc, item) => acc + (item.qty * item.discount * item.mrp) / 100, 0)
-    .toFixed(2);
+    ? cartItems
+        .reduce(
+          (acc, item) => acc + (item.qty * item.discount * item.mrp) / 100,
+          0
+        )
+        .toFixed(2)
+    : 0;
 
   const totalMrp = cartItems
-    .reduce((acc, item) => acc + item.qty * item.mrp, 0)
-    .toFixed(2);
+    ? cartItems.reduce((acc, item) => acc + item.qty * item.mrp, 0).toFixed(2)
+    : 0;
 
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');

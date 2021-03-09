@@ -37,9 +37,9 @@ const ShippingScreen = ({ history }) => {
               <Form.Check
                 inline
                 type='radio'
-                label='PayTM'
-                id='PayTM'
-                value='paytm'
+                label='PayPal'
+                id='PayPal'
+                value='paypal'
                 name='paymentMethod'
                 onChange={(e) => setPaymentMethod(e.target.value)}
               ></Form.Check>

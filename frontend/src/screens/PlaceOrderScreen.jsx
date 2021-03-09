@@ -7,6 +7,8 @@ import Rupee from './../components/Rupee';
 import Loader from './../components/Loader';
 import Message from './../components/Message';
 import { createOrder } from '../actions/orderActions';
+import { CART_EMPTY } from '../constants/cartConstants';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -27,15 +29,15 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
+      dispatch({ type: ORDER_CREATE_RESET });
       history.push(`/orders/${order._id}`);
     }
     if (!paymentMethod) {
       history.push('/paymentMethod');
     }
-  }, [shippingAddress, paymentMethod, history, success, order]);
+  }, [shippingAddress, paymentMethod, history, success, order, dispatch]);
 
   const placeOrderHandler = (e) => {
-    console.log('place order called');
     e.preventDefault();
     dispatch(
       createOrder({
@@ -55,6 +57,9 @@ const PlaceOrderScreen = ({ history }) => {
           (Number(totalMrp) - Number(totalDiscount) > 499 ? 0 : 49),
       })
     );
+    setTimeout(() => {
+      dispatch({ type: CART_EMPTY });
+    }, 1000);
   };
 
   return (
