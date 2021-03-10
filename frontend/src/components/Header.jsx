@@ -70,9 +70,16 @@ const Header = ({ location }) => {
             <Nav className='nav ml-auto'>
               {userInfo && userInfo.name ? (
                 <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
-                  <NavDropdown.Item className='smaller-font'>
-                    Profile
-                  </NavDropdown.Item>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item className='smaller-font'>
+                      Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='myorders'>
+                    <NavDropdown.Item className='smaller-font'>
+                      My Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
                   <NavDropdown.Item
                     className='smaller-font'
                     onClick={() => dispatch(logout())}

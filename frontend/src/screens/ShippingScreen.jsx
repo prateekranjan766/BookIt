@@ -9,6 +9,9 @@ import '../styles/LoginScreen.scss';
 const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -20,6 +23,13 @@ const ShippingScreen = ({ history }) => {
   useEffect(() => {
     if (!userInfo || !userInfo.name) {
       history.push('/login');
+    }
+    if (!cartItems) {
+      history.push('/cart');
+    } else {
+      if (cartItems.length === 0) {
+        history.push('/cart');
+      }
     }
   }, [history, userInfo]);
 

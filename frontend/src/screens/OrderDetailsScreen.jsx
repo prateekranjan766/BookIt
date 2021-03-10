@@ -56,7 +56,6 @@ const OrderDetailsScreen = ({ match, history }) => {
   }, [dispatch, orderId, order, successPay, history, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(order._id, paymentResult));
   };
 
@@ -220,6 +219,8 @@ const OrderDetailsScreen = ({ match, history }) => {
               ) : (
                 !order.isPaid &&
                 (!sdkReady ? (
+                  <Loader />
+                ) : loadingPay ? (
                   <Loader />
                 ) : (
                   <ListGroup.Item className='m-0 p-0 border-0'>
