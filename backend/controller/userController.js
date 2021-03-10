@@ -77,4 +77,20 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, getUserProfile };
+// @desc        Get user profile details
+// @route       GET /api/users/profile/details
+// @access      Private
+const getUserProfileDetails = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select(
+    'name email userAddress'
+  );
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(401);
+    throw new Error('Not Authorized, no token');
+  }
+});
+
+export { authUser, registerUser, getUserProfile, getUserProfileDetails };
