@@ -5,10 +5,21 @@ import { Link } from 'react-router-dom';
 import Rupee from './../components/Rupee';
 import Loader from './../components/Loader';
 import Message from './../components/Message';
-import { listOrderDetails, payOrder } from '../actions/orderActions';
+import {
+  listOrderDetails,
+  payOrder,
+  dispatchOrder,
+  shipOrder,
+  deliverOrder,
+} from '../actions/orderActions';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { ORDER_PAY_RESET } from './../constants/orderConstants';
+import {
+  ORDER_PAY_RESET,
+  ORDER_DISPATCH_RESET,
+  ORDER_SHIP_RESET,
+  ORDER_DELIVER_RESET,
+} from './../constants/orderConstants';
 
 const OrderDetailsScreen = ({ match, history }) => {
   const orderId = match.params.id;
@@ -24,6 +35,26 @@ const OrderDetailsScreen = ({ match, history }) => {
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
+
+  const orderDispatch = useSelector((state) => state.orderDispatch);
+  const {
+    loading: loadingDispatch,
+    success: successDispatch,
+    error: errorDispatch,
+  } = orderDispatch;
+
+  const orderShip = useSelector((state) => state.orderShip);
+  const {
+    loading: loadingShip,
+    success: successShip,
+    error: errorShip,
+  } = orderShip;
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    loading: loadingDeliver,
+    success: successDeliver,
+    error: errorDeliver,
+  } = orderDeliver;
 
   useEffect(() => {
     if (!userInfo || !userInfo.name) {
@@ -43,8 +74,18 @@ const OrderDetailsScreen = ({ match, history }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay || order._id !== orderId) {
+    if (
+      !order ||
+      successPay ||
+      order._id !== orderId ||
+      successDispatch ||
+      successShip ||
+      successDeliver
+    ) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DISPATCH_RESET });
+      dispatch({ type: ORDER_SHIP_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(listOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -53,10 +94,32 @@ const OrderDetailsScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, order, successPay, history, userInfo]);
+  }, [
+    dispatch,
+    orderId,
+    order,
+    successPay,
+    history,
+    userInfo,
+    successDispatch,
+    successShip,
+    successDeliver,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order._id, paymentResult));
+  };
+
+  const dispatchHandler = () => {
+    dispatch(dispatchOrder(order._id));
+  };
+
+  const shipHandler = () => {
+    dispatch(shipOrder(order._id));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
   };
 
   return (
@@ -223,17 +286,61 @@ const OrderDetailsScreen = ({ match, history }) => {
                 ) : loadingPay ? (
                   <Loader />
                 ) : (
-                  <ListGroup.Item className='m-0 p-0 border-0'>
-                    <PayPalButton
-                      amount={
-                        order.itemsPrice > 499
-                          ? order.itemsPrice.toFixed(2)
-                          : (order.itemsPrice + 49).toFixed(2)
-                      }
-                      onSuccess={successPaymentHandler}
-                    ></PayPalButton>
-                  </ListGroup.Item>
+                  !userInfo.isAdmin && (
+                    <ListGroup.Item className='m-0 p-0 border-0'>
+                      <PayPalButton
+                        amount={
+                          order.itemsPrice > 499
+                            ? order.itemsPrice.toFixed(2)
+                            : (order.itemsPrice + 49).toFixed(2)
+                        }
+                        onSuccess={successPaymentHandler}
+                      ></PayPalButton>
+                    </ListGroup.Item>
+                  )
                 ))
+              )}
+
+              {userInfo.isAdmin && (
+                <ListGroup.Item className='m-0 px-0 pb-0 pt-1 border-0'>
+                  <Button
+                    variant={order.isDispatched ? 'success' : 'dark'}
+                    className='btn-block default-font py-3 text-uppercase ls-2'
+                    disabled={order.isDispatched === true}
+                    onClick={dispatchHandler}
+                  >
+                    {/*classname ls-2 means letter-spacing = .2rem*/}
+                    {order.isDispatched ? 'Dispatched' : 'Mark as dispatched'}
+                  </Button>
+                </ListGroup.Item>
+              )}
+
+              {userInfo.isAdmin && (
+                <ListGroup.Item className='m-0 py-1 px-0 border-0'>
+                  <Button
+                    variant={order.isShipped ? 'success' : 'dark'}
+                    className='btn-block default-font py-3 text-uppercase ls-2'
+                    disabled={order.isShipped === true}
+                    onClick={shipHandler}
+                  >
+                    {/*classname ls-2 means letter-spacing = .2rem*/}
+                    {order.isShipped ? 'Shipped' : 'Mark as shipped'}
+                  </Button>
+                </ListGroup.Item>
+              )}
+
+              {userInfo.isAdmin && (
+                <ListGroup.Item className='m-0 p-0 border-0'>
+                  <Button
+                    variant={order.isDelivered ? 'success' : 'dark'}
+                    className='btn-block default-font py-3 text-uppercase ls-2'
+                    disabled={order.isDelivered === true}
+                    onClick={deliverHandler}
+                  >
+                    {/*classname ls-2 means letter-spacing = .2rem*/}
+                    {order.isDelivered ? 'Delivered' : 'Mark as Delivered'}
+                  </Button>
+                </ListGroup.Item>
               )}
             </ListGroup>
           </Col>
