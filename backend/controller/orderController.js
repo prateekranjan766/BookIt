@@ -93,10 +93,11 @@ const getMyOrders = asyncHandler(async (req, res) => {
 //  @route       GET /api/orders/allOrders
 //  @access      Admin
 const getAllOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find()
+  const orders = await Order.find({})
     .select(
       '_id user createdAt isPaid isDelivered paidAt deliveredAt totalPrice'
     )
+    .populate('user', 'name')
     .sort({ createdAt: '-1' });
 
   if (orders) {
