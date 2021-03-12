@@ -89,4 +89,22 @@ const getMyOrders = asyncHandler(async (req, res) => {
   }
 });
 
-export { createOrder, getOrderById, updateToPaid, getMyOrders };
+//  @desc        List all orders
+//  @route       GET /api/orders/allOrders
+//  @access      Admin
+const getAllOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find()
+    .select(
+      '_id user createdAt isPaid isDelivered paidAt deliveredAt totalPrice'
+    )
+    .sort({ createdAt: '-1' });
+
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error('Orders not found');
+  }
+});
+
+export { createOrder, getOrderById, updateToPaid, getMyOrders, getAllOrders };

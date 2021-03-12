@@ -68,6 +68,25 @@ const Header = ({ location }) => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='nav ml-auto'>
+              {userInfo && userInfo.name && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='basic-nav-dropdown'>
+                  <LinkContainer to='/admin/userList'>
+                    <NavDropdown.Item className='smaller-font'>
+                      Users
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderList'>
+                    <NavDropdown.Item className='smaller-font'>
+                      Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/bookList'>
+                    <NavDropdown.Item className='smaller-font'>
+                      Books
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
               {userInfo && userInfo.name ? (
                 <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
                   <LinkContainer to='/profile'>
@@ -75,7 +94,7 @@ const Header = ({ location }) => {
                       Profile
                     </NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='myorders'>
+                  <LinkContainer to='/myorders'>
                     <NavDropdown.Item className='smaller-font'>
                       My Orders
                     </NavDropdown.Item>
