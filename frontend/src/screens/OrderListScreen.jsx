@@ -40,16 +40,9 @@ const OrderListScreen = ({ history }) => {
             <h1 className='heading'>All Orders</h1>
           </Row>
           <Row className='px-5'>
-            <Table
-              hover
-              striped
-              bordered
-              responsive
-              variant='dark'
-              className='default-font'
-            >
+            <Table hover striped bordered responsive className='default-font'>
               <thead>
-                <tr className='text-warning'>
+                <tr>
                   <th>Order Id</th>
                   <th>User</th>
                   <th className='text-center'>Date</th>
@@ -62,12 +55,12 @@ const OrderListScreen = ({ history }) => {
               <tbody>
                 {orders.map((order) => (
                   <tr key={order._id}>
-                    <td className='text-info'>{order._id}</td>
-                    <td className='text-info'>{order.user.name}</td>
-                    <td className='text-center text-info'>
+                    <td>{order._id}</td>
+                    <td>{order.user ? order.user.name : ''}</td>
+                    <td className='text-center'>
                       {order.createdAt.substring(0, 10)}
                     </td>
-                    <td className='text-right text-success'>
+                    <td className='text-right'>
                       <Rupee />
                       {order.totalPrice.toFixed(2)}
                     </td>
@@ -85,10 +78,10 @@ const OrderListScreen = ({ history }) => {
                         <i className='fas fa-times-circle text-danger'></i>
                       )}
                     </td>
-                    <td className='text-center'>
+                    <td className='text-center p-0 m-0'>
                       <Button
-                        variant='info'
-                        className='default-font btn-block'
+                        variant='dark'
+                        className='default-font btn-block py-3'
                         onClick={() => detailsHandler(order._id)}
                       >
                         Details

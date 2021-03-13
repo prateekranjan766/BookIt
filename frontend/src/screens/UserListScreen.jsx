@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import Rupee from '../components/Rupee';
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -15,21 +14,25 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { loading: loadingDelete, success: successDelete } = userDelete;
+
   useEffect(() => {
     if (!userInfo || !userInfo.name || !userInfo.isAdmin) {
       history.push('/login');
     }
     dispatch(listUsers());
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete, users]);
 
-  const detailsHandler = () => {
-    // history.push(`/user/${id}`);
-    console.log('details handler called');
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
     <Container className='padding-top-10'>
-      {loading == true ? (
+      {loading === true || loadingDelete === true ? (
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
@@ -41,16 +44,9 @@ const UserListScreen = ({ history }) => {
             <h1 className='heading'>All Users</h1>
           </Row>
           <Row className='px-5'>
-            <Table
-              hover
-              striped
-              bordered
-              responsive
-              variant='dark'
-              className='default-font'
-            >
+            <Table hover striped bordered responsive className='default-font'>
               <thead>
-                <tr className='text-warning'>
+                <tr>
                   <th>User Id</th>
                   <th>User Name</th>
                   <th className='text-center'>Email</th>
@@ -62,9 +58,9 @@ const UserListScreen = ({ history }) => {
               <tbody>
                 {users.map((user) => (
                   <tr key={user._id}>
-                    <td className='text-info'>{user._id}</td>
-                    <td className='text-info'>{user.name}</td>
-                    <td className='text-center text-info'>{user.email}</td>
+                    <td>{user._id}</td>
+                    <td>{user.name}</td>
+                    <td className='text-center'>{user.email}</td>
                     <td className='text-center bigger-font'>
                       {user.isAdmin ? (
                         <i className='fas fa-check-circle text-success'></i>
@@ -80,10 +76,11 @@ const UserListScreen = ({ history }) => {
                         <i className='fas fa-edit'></i>
                       </Button>
                     </td>
-                    <td className='text-center p-0 m-0'>
+                    <td className='text-center  py-0 px-1 m-0'>
                       <Button
                         variant='danger'
                         className='default-font  py-3 btn-block'
+                        onClick={() => deleteHandler(user._id)}
                       >
                         <i class='fas fa-trash'></i>
                       </Button>
