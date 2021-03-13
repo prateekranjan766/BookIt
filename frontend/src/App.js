@@ -13,6 +13,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import MyOrdersScreen from './screens/MyOrdersScreen';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
@@ -29,6 +30,7 @@ function App() {
             path='/profile/changePassword'
             component={ChangePasswordScreen}
           />
+          <Route exact path='/admin/userList' component={UserListScreen} />
           <Route exact path='/admin/orderList' component={OrderListScreen} />
           <Route exact path='/myorders' component={MyOrdersScreen} />
           <Route exact path='/profile' component={ProfileScreen} />

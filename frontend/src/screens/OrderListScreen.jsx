@@ -35,7 +35,7 @@ const OrderListScreen = ({ history }) => {
       ) : orders.length === 0 ? (
         <Message variant='info'>No Orders Found!!</Message>
       ) : (
-        <p>
+        <>
           <Row className='px-5 pb-5'>
             <h1 className='heading'>All Orders</h1>
           </Row>
@@ -99,7 +99,7 @@ const OrderListScreen = ({ history }) => {
               </tbody>
             </Table>
           </Row>
-        </p>
+        </>
       )}
     </Container>
   );
