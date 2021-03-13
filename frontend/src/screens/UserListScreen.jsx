@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listUsers, deleteUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { USER_EDIT_RESET, USER_LIST_RESET } from '../constants/userConstants';
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -21,9 +22,16 @@ const UserListScreen = ({ history }) => {
     if (!userInfo || !userInfo.name || !userInfo.isAdmin) {
       history.push('/login');
     }
-    dispatch(listUsers());
+    if (!users || successDelete) {
+      dispatch(listUsers());
+      dispatch({ type: USER_EDIT_RESET });
+    }
   }, [dispatch, history, userInfo, successDelete, users]);
 
+  const editHandler = (id) => {
+    dispatch({ type: USER_LIST_RESET });
+    history.push(`/admin/user/${id}/edit`);
+  };
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteUser(id));
@@ -36,7 +44,7 @@ const UserListScreen = ({ history }) => {
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
-      ) : users.length === 0 ? (
+      ) : !users ? (
         <Message variant='info'>No Users Found!!</Message>
       ) : (
         <>
@@ -72,6 +80,7 @@ const UserListScreen = ({ history }) => {
                       <Button
                         variant='light'
                         className='default-font  py-3 btn-block'
+                        onClick={() => editHandler(user._id)}
                       >
                         <i className='fas fa-edit'></i>
                       </Button>
@@ -82,7 +91,7 @@ const UserListScreen = ({ history }) => {
                         className='default-font  py-3 btn-block'
                         onClick={() => deleteHandler(user._id)}
                       >
-                        <i class='fas fa-trash'></i>
+                        <i className='fas fa-trash'></i>
                       </Button>
                     </td>
                   </tr>

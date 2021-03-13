@@ -23,6 +23,14 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
   USER_DELETE_RESET,
+  USER_INFO_REQUEST,
+  USER_INFO_SUCCESS,
+  USER_INFO_FAIL,
+  USER_INFO_RESET,
+  USER_EDIT_REQUEST,
+  USER_EDIT_SUCCESS,
+  USER_EDIT_FAIL,
+  USER_EDIT_RESET,
 } from '../constants/userConstants';
 import axios from 'axios';
 
@@ -200,6 +208,65 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getUserProfileInfo = (id) => async (dispatch, getState) => {
+  dispatch({ type: USER_INFO_REQUEST });
+
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/profile/${id}/edit`, config);
+
+    dispatch({ type: USER_INFO_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_INFO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateUserProfile = (id, user) => async (dispatch, getState) => {
+  dispatch({ type: USER_EDIT_REQUEST });
+
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/users/profile/${id}/edit`,
+      user,
+      config
+    );
+
+    dispatch({ type: USER_EDIT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_EDIT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

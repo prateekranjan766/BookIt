@@ -151,6 +151,45 @@ const deleteUserById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc        Get user profile by id
+// @route       GET /api/users/profile/:id/edit
+// @access      Admin
+const getUserProfileById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('name email isAdmin');
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found!');
+  }
+});
+
+// @desc        Update profile details by id
+// @route       PUT /api/users/profile/:id/edit
+// @access      Private
+const updateUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+
+    const updatedUser = await user.save();
+    res.json({
+      id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found!');
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -159,4 +198,6 @@ export {
   updateUserProfileDetails,
   getAllUsers,
   deleteUserById,
+  getUserProfileById,
+  updateUserById,
 };
