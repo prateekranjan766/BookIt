@@ -106,10 +106,26 @@ const updateBook = asyncHandler(async (req, res) => {
   }
 });
 
+//  @desc        Delete a book
+//  @route       DELETE /api/books/:id
+//  @access      Admin
+const deleteBook = asyncHandler(async (req, res) => {
+  const book = await Book.findById(req.params.id);
+
+  if (book) {
+    await Book.findByIdAndDelete(req.params.id);
+    res.send('Deleted');
+  } else {
+    res.status(404);
+    throw new Error('Book not found');
+  }
+});
+
 export {
   getTrendingBooksByCategory,
   getBookDescription,
   getAllBooks,
   createBook,
   updateBook,
+  deleteBook,
 };

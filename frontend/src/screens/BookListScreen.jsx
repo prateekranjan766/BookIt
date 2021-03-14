@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { Container, Row, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listBooks } from '../actions/bookActions';
+import { listBooks, createBook, deleteBook } from '../actions/bookActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Rupee from '../components/Rupee';
+import { BOOK_CREATE_RESET } from '../constants/bookConstants';
 // import { USER_EDIT_RESET, USER_LIST_RESET } from '../constants/userConstants';
 
 const BookListScreen = ({ history }) => {
@@ -14,32 +15,53 @@ const BookListScreen = ({ history }) => {
   const bookList = useSelector((state) => state.bookList);
   const { loading, error, books } = bookList;
 
+  const bookCreate = useSelector((state) => state.bookCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    book: createdBook,
+  } = bookCreate;
+
+  const bookDelete = useSelector((state) => state.bookDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = bookDelete;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    dispatch({ type: BOOK_CREATE_RESET });
+    if (successCreate) {
+      history.push(`/admin/book/${createdBook._id}/edit`);
+    }
     if (!userInfo || !userInfo.name || !userInfo.isAdmin) {
       history.push('/login');
-    }
-    if (!books) {
+    } else {
       dispatch(listBooks());
       //   dispatch({ type: USER_EDIT_RESET });
     }
-  }, [dispatch, history, userInfo, books]);
+  }, [dispatch, history, userInfo, books, successCreate, successDelete]);
 
   const editHandler = (id) => {
-    // dispatch({ type: USER_LIST_RESET });
-    // history.push(`/admin/user/${id}/edit`);
+    history.push(`/admin/book/${id}/edit`);
   };
   const deleteHandler = (id) => {
-    // if (window.confirm('Are you sure?')) {
-    //   dispatch(deleteUser(id));
-    // }
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteBook(id));
+    }
+  };
+
+  const createBookHandler = () => {
+    dispatch(createBook());
   };
 
   return (
     <Container className='padding-top-10'>
-      {loading === true ? (
+      {loading === true || loadingCreate === true || loadingDelete === true ? (
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
@@ -47,8 +69,17 @@ const BookListScreen = ({ history }) => {
         <Message variant='info'>No Books Found!!</Message>
       ) : (
         <>
-          <Row className='px-5 pb-5'>
+          {errorCreate && <Message>{errorCreate}</Message>}
+          {errorDelete && <Message>{errorDelete}</Message>}
+          <Row className='px-5 pb-5 d-flex'>
             <h1 className='heading-left'>All Books</h1>
+            <Button
+              variant='dark'
+              className='default-font ml-auto px-5'
+              onClick={createBookHandler}
+            >
+              Create Book
+            </Button>
           </Row>
           <Row className='px-5'>
             <Table hover striped bordered responsive className='default-font'>
