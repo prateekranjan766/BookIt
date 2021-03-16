@@ -62,26 +62,14 @@ const UserEditScreen = ({ history, match }) => {
         <Message>{error}</Message>
       ) : (
         <FormContainer>
+          <Link
+            to='/admin/userList'
+            className='btn btn-dark default-font px-4 py-2'
+          >
+            Go Back
+          </Link>
           <h1 className='py-4 login__screen__heading text-center'>Profile</h1>
-          {/* <Row className='pb-5'>
-            <Col>
-              <Button
-                variant={editProfile ? 'danger' : 'dark'}
-                className='default-font px-4 py-2'
-                onClick={() => setEditProfile(!editProfile)}
-              >
-                {!editProfile ? (
-                  <>
-                    <i className='fas fa-pencil-alt'></i> Edit
-                  </>
-                ) : (
-                  <>
-                    <i className='fas fa-times'></i> Cancle
-                  </>
-                )}
-              </Button>
-            </Col>
-          </Row> */}
+
           {successEdit && <Message variant='success'>Profile Updated</Message>}
           <Form className='default-font' onSubmit={(e) => submitHandler(e)}>
             <Form.Group controlId='name'>

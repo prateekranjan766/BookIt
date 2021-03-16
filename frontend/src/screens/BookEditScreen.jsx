@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from './../components/Message';
 import { getBookDescription, updateBook } from '../actions/bookActions';
-import { BOOK_UPDATE_RESET } from '../constants/bookConstants';
+import {
+  BOOK_UPDATE_RESET,
+  BOOK_CREATE_RESET,
+} from '../constants/bookConstants';
+import axios from 'axios';
 import '../styles/LoginScreen.scss';
 
 const BookEditScreen = ({ history, match }) => {
@@ -25,6 +29,7 @@ const BookEditScreen = ({ history, match }) => {
   const bookUpdate = useSelector((state) => state.bookUpdate);
   const { success: successUpdate, loading: loadingUpdate } = bookUpdate;
 
+  const [uploading, setUploading] = useState(false);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState([]);
   const [description, setDescription] = useState('');
@@ -42,6 +47,7 @@ const BookEditScreen = ({ history, match }) => {
   const [weight, setWeight] = useState('');
 
   useEffect(() => {
+    dispatch({ type: BOOK_CREATE_RESET });
     if (!userInfo || !userInfo.name) {
       history.push('/login');
     }
@@ -98,6 +104,30 @@ const BookEditScreen = ({ history, match }) => {
     history.push('/admin/bookList');
   };
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post(`/api/uploads`, formData, config);
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+
   return (
     <Container className='login__screen__container'>
       {loading || loadingUpdate ? (
@@ -106,6 +136,12 @@ const BookEditScreen = ({ history, match }) => {
         <Message>{error}</Message>
       ) : (
         <FormContainer>
+          <Link
+            to='/admin/bookList'
+            className='btn btn-dark default-font px-4 py-2'
+          >
+            Go Back
+          </Link>
           <h1 className='py-4 login__screen__heading text-center'>Edit Book</h1>
 
           <Form className='default-font' onSubmit={(e) => submitHandler(e)}>
@@ -229,6 +265,13 @@ const BookEditScreen = ({ history, match }) => {
                 onChange={(e) => setImage(e.target.value)}
                 required
               ></Form.Control>
+              <Form.File
+                id='image-upload'
+                label='Choose image'
+                custom
+                onChange={uploadFileHandler}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Label>Dimensions (in cms)</Form.Label>

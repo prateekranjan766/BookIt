@@ -34,17 +34,17 @@ const BookListScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch({ type: BOOK_CREATE_RESET });
-    if (successCreate) {
-      history.push(`/admin/book/${createdBook._id}/edit`);
-    }
-    if (!userInfo || !userInfo.name || !userInfo.isAdmin) {
-      history.push('/login');
+    if (userInfo && userInfo.isAdmin) {
+      if (successCreate) {
+        dispatch(listBooks());
+        history.push(`/admin/book/${createdBook._id}/edit`);
+      } else {
+        dispatch(listBooks());
+      }
     } else {
-      dispatch(listBooks());
-      //   dispatch({ type: USER_EDIT_RESET });
+      history.push('/login');
     }
-  }, [dispatch, history, userInfo, books, successCreate, successDelete]);
+  }, [dispatch, history, userInfo, successCreate, successDelete]);
 
   const editHandler = (id) => {
     history.push(`/admin/book/${id}/edit`);
