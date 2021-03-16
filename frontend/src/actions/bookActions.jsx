@@ -17,6 +17,10 @@ import {
   BOOK_DELETE_SUCCESS,
   BOOK_DELETE_FAIL,
   BOOK_DELETE_RESET,
+  BOOK_UPDATE_REQUEST,
+  BOOK_UPDATE_SUCCESS,
+  BOOK_UPDATE_FAIL,
+  BOOK_UPDATE_RESET,
 } from '../constants/bookConstants';
 import axios from 'axios';
 
@@ -121,6 +125,33 @@ export const deleteBook = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BOOK_DELETE_FAIL,
+      payload: error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
+
+export const updateBook = (id, book) => async (dispatch, getState) => {
+  dispatch({ type: BOOK_UPDATE_REQUEST });
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`/api/books/${id}`, book, config);
+
+    dispatch({ type: BOOK_UPDATE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: BOOK_UPDATE_FAIL,
       payload: error.response.data.message
         ? error.response.data.message
         : error.message,
