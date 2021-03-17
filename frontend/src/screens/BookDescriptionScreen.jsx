@@ -11,13 +11,15 @@ import {
 } from 'react-bootstrap';
 import { getBookDescription } from '../actions/bookActions';
 import Rating from './../components/Rating';
-import '../styles/BookDescriptionScreen.scss';
 import Rupee from './../components/Rupee';
 import BookSummary from './../components/BookSummary';
 import BookDetails from './../components/BookDetails';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { addToCart } from '../actions/cartActions';
+import BookReviews from './../components/BookReviews';
+import { BOOK_CREATE_REVIEW_RESET } from '../constants/bookConstants';
+import '../styles/BookDescriptionScreen.scss';
 
 const BookDescriptionScreen = ({ match, history }) => {
   const tabs = ['Summary', 'Details', 'Reviews'];
@@ -28,14 +30,26 @@ const BookDescriptionScreen = ({ match, history }) => {
   const bookDescription = useSelector((state) => state.bookDescription);
   const { book, loading, error } = bookDescription;
 
+  const bookCreateReview = useSelector((state) => state.bookCreateReview);
+  const {
+    success: successCreateReview,
+    loading: loadingCreateReview,
+    error: errorCreateReview,
+  } = bookCreateReview;
+
+  useEffect(() => {
+    if (successCreateReview) {
+      alert('Review Submitted');
+      dispatch({ type: BOOK_CREATE_REVIEW_RESET });
+    }
+
+    dispatch(getBookDescription(match.params.id));
+  }, [dispatch, match, successCreateReview]);
+
   const addToCartHandler = () => {
     dispatch(addToCart(book._id, Number(qty)));
     history.push('/cart');
   };
-
-  useEffect(() => {
-    dispatch(getBookDescription(match.params.id));
-  }, [dispatch]);
 
   return (
     <Container className='book-description__container'>
@@ -65,7 +79,7 @@ const BookDescriptionScreen = ({ match, history }) => {
               <Rating
                 value={book.rating}
                 color={'#000'}
-                text={String(book.rating)}
+                text={String(book.rating.toFixed(2))}
               />
             </Row>
 
@@ -164,6 +178,16 @@ const BookDescriptionScreen = ({ match, history }) => {
                   dimensions={book.dimensions}
                 />
               )}
+              {toggleTab === 'Reviews' &&
+                (loadingCreateReview === true ? (
+                  <Loader />
+                ) : (
+                  <BookReviews
+                    id={book._id}
+                    reviews={book.reviews}
+                    error={errorCreateReview}
+                  />
+                ))}
             </Row>
           </Col>
         </Row>

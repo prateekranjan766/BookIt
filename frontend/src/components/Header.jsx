@@ -91,19 +91,19 @@ const Header = ({ location }) => {
                 <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item className='smaller-font'>
-                      Profile
+                      <i className='fas fa-user-tie'></i> Profile
                     </NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/myorders'>
                     <NavDropdown.Item className='smaller-font'>
-                      My Orders
+                      <i className='fas fa-list'></i> My Orders
                     </NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item
                     className='smaller-font'
                     onClick={() => dispatch(logout())}
                   >
-                    Logout
+                    <i className='fas fa-sign-out-alt'></i> Logout
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
@@ -113,11 +113,15 @@ const Header = ({ location }) => {
                     location.pathname === '/' ? 'text-light' : 'text-dark'
                   }
                 >
-                  <Nav.Link>SignIn</Nav.Link>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i> SignIn
+                  </Nav.Link>
                 </LinkContainer>
               )}
               <LinkContainer to='/cart'>
-                <Nav.Link>Cart</Nav.Link>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
               </LinkContainer>
               {/* <NavDropdown title='Dropdown' id='basic-nav-dropdown'>
               <NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>

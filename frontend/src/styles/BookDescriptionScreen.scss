@@ -72,3 +72,12 @@
   margin-right: 0.3rem;
   font-size: 1.5rem;
 }
+
+.reviews {
+  max-height: 25rem;
+  width: 85%;
+  overflow-y: auto;
+  @include respond(phone) {
+    width: 100%;
+  }
+}

@@ -21,6 +21,10 @@ import {
   BOOK_UPDATE_SUCCESS,
   BOOK_UPDATE_FAIL,
   BOOK_UPDATE_RESET,
+  BOOK_CREATE_REVIEW_REQUEST,
+  BOOK_CREATE_REVIEW_SUCCESS,
+  BOOK_CREATE_REVIEW_FAIL,
+  BOOK_CREATE_REVIEW_RESET,
 } from '../constants/bookConstants';
 import axios from 'axios';
 
@@ -152,6 +156,33 @@ export const updateBook = (id, book) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BOOK_UPDATE_FAIL,
+      payload: error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
+
+export const createBookReview = (id, review) => async (dispatch, getState) => {
+  dispatch({ type: BOOK_CREATE_REVIEW_REQUEST });
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`/api/books/${id}/reviews`, review, config);
+
+    dispatch({ type: BOOK_CREATE_REVIEW_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: BOOK_CREATE_REVIEW_FAIL,
       payload: error.response.data.message
         ? error.response.data.message
         : error.message,
