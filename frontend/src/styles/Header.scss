@@ -33,11 +33,11 @@
     }
   }
 }
-.navbar {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-}
+// .navbar {
+//   display: flex;
+//   justify-content: space-around;
+//   flex-wrap: nowrap;
+// }
 .searchbox {
   width: 100%;
   padding-left: 2rem;
@@ -50,25 +50,20 @@
   }
 
   &__container {
-    width: 70%;
+    position: relative;
+    min-width: 40%;
     margin-right: 3%;
     margin-left: 3%;
+    @include respond(phone) {
+      min-width: 52%;
+    }
   }
 
   &__icon {
     position: absolute;
-    top: 2.5rem;
-    right: 19%;
+    top: 1rem;
+    right: 1rem;
     font-size: 1.6rem;
-    @include respond(tab-land) {
-      right: 17%;
-    }
-    @include respond(tab-port) {
-      right: 13%;
-    }
-    @include respond(tab-port) {
-      right: 15%;
-    }
   }
 }
 .brand-name-primary {
