@@ -121,6 +121,48 @@ const deleteBook = asyncHandler(async (req, res) => {
   }
 });
 
+//  @desc        Create a book review
+//  @route       POST /api/books/:id/reviews
+//  @access      Private
+const createBookReview = asyncHandler(async (req, res) => {
+  const book = await Book.findById(req.params.id);
+
+  if (book) {
+    const { rating, comment } = req.body;
+
+    const isReviewed = book.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      res.status(400);
+      throw new Error('Book already reviewed!');
+    }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    book.reviews.push(review);
+
+    book.numReviews = book.reviews.length;
+
+    book.rating =
+      book.reviews.reduce((acc, item) => acc + item.rating, 0) /
+      book.reviews.length;
+
+    await book.save();
+
+    res.status(201).json({ message: 'Review Created' });
+  } else {
+    res.status(404);
+    throw new Error('Book not found');
+  }
+});
+
 export {
   getTrendingBooksByCategory,
   getBookDescription,
@@ -128,4 +170,5 @@ export {
   createBook,
   updateBook,
   deleteBook,
+  createBookReview,
 };

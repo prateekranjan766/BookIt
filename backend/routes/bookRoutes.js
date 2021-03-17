@@ -6,6 +6,7 @@ import {
   createBook,
   updateBook,
   deleteBook,
+  createBookReview,
 } from './../controller/bookController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -19,5 +20,6 @@ router
   .put(protect, admin, updateBook)
   .delete(protect, admin, deleteBook);
 router.route('/:category/:count').get(getTrendingBooksByCategory);
+router.route('/:id/reviews').post(protect, createBookReview);
 
 export default router;
