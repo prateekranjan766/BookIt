@@ -18,6 +18,32 @@ const getTrendingBooksByCategory = asyncHandler(async (req, res) => {
 //  @route       GET /api/books/bookScreen/:sortBy
 //  @access      public
 const getBooksBySorting = asyncHandler(async (req, res) => {
+  const category = req.query.category
+    ? {
+        category: { $eq: req.query.category },
+      }
+    : {};
+  const rating = req.query.rating
+    ? {
+        rating: {
+          $gt: req.query.rating,
+        },
+      }
+    : {};
+  const price = req.query.price
+    ? {
+        price: {
+          $lt: req.query.price,
+        },
+      }
+    : {};
+  const pages = req.query.pages
+    ? {
+        numOfPages: {
+          $lt: req.query.pages,
+        },
+      }
+    : {};
   const keyword = req.query.keyword
     ? {
         title: {
@@ -33,7 +59,13 @@ const getBooksBySorting = asyncHandler(async (req, res) => {
       : sortBy === 'price-low-high'
       ? { price: 1 }
       : { rating: -1 };
-  const books = await Book.find({ ...keyword }).sort(x);
+  const books = await Book.find({
+    ...keyword,
+    ...category,
+    ...pages,
+    ...price,
+    ...rating,
+  }).sort(x);
 
   if (books) {
     res.json(books);

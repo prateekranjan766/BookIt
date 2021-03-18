@@ -20,6 +20,12 @@ import Message from '../components/Message';
 const BookScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
+  //For Filter
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState(10000);
+  const [rating, setRating] = useState('');
+  const [pages, setPages] = useState(10000);
+
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [sortBy, setSortBy] = useState('highestRated');
 
@@ -43,12 +49,26 @@ const BookScreen = ({ match }) => {
   };
 
   useEffect(() => {
-    dispatch(getBooksForBookScreen(sortBy, keyword));
-  }, [dispatch, sortBy, keyword]);
+    dispatch(
+      getBooksForBookScreen(sortBy, keyword, category, rating, price, pages)
+    );
+  }, [dispatch, sortBy, keyword, category, rating, price, pages]);
 
   return (
     <>
-      {toggleSidebar && <FilterSidebar close={closeSidebar} />}
+      {toggleSidebar && (
+        <FilterSidebar
+          category={category}
+          rating={rating}
+          price={price}
+          pages={pages}
+          setCategory={setCategory}
+          setRating={setRating}
+          setPrice={setPrice}
+          setPages={setPages}
+          close={closeSidebar}
+        />
+      )}
       <Container className='book-screen__container'>
         <Row className='my-5'>
           <h1 className='book-screen__heading'>Shop All</h1>

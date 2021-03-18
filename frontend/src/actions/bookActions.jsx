@@ -194,14 +194,18 @@ export const createBookReview = (id, review) => async (dispatch, getState) => {
   }
 };
 
-export const getBooksForBookScreen = (sortBy, keyword = '') => async (
-  dispatch,
-  getState
-) => {
+export const getBooksForBookScreen = (
+  sortBy,
+  keyword = '',
+  category = '',
+  rating = '',
+  price = '',
+  pages = ''
+) => async (dispatch, getState) => {
   dispatch({ type: BOOK_SCREEN_LIST_REQUEST });
   try {
     const { data } = await axios.get(
-      `/api/books/bookScreen/${sortBy}?keyword=${keyword}`
+      `/api/books/bookScreen/${sortBy}?keyword=${keyword}&category=${category}&rating=${rating}&price=${price}&pages=${pages}`
     );
 
     dispatch({ type: BOOK_SCREEN_LIST_SUCCESS, payload: data });
