@@ -21,7 +21,6 @@ app.use('/api/books', bookRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/uploads', uploadRoutes);
 
-app.get('/', (req, res) => res.send('Api is running..'));
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
@@ -33,6 +32,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
   app.use('*', express.static(path.join(__dirname, 'frontend', 'build')));
+} else {
+  app.get('/', (req, res) => res.send('Api is running..'));
 }
 
 app.use(notFound);
