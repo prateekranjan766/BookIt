@@ -23,7 +23,8 @@
     "server": "nodemon backend/server.js",
     "dev": "concurrently \"npm run server\" \"cd frontend && npm start\"",
     "import:data": "node backend/seeder.js",
-    "destroy:data": "node backend/seeder.js -d"
+    "destroy:data": "node backend/seeder.js -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Prateek Ranjan",
   "license": "ISC"
