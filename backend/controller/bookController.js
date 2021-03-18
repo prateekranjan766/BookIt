@@ -14,6 +14,35 @@ const getTrendingBooksByCategory = asyncHandler(async (req, res) => {
   res.json(books);
 });
 
+//  @desc        Get all books in sorted way
+//  @route       GET /api/books/bookScreen/:sortBy
+//  @access      public
+const getBooksBySorting = asyncHandler(async (req, res) => {
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+  const sortBy = req.params.sortBy;
+  const x =
+    sortBy === 'price-high-low'
+      ? { price: -1 }
+      : sortBy === 'price-low-high'
+      ? { price: 1 }
+      : { rating: -1 };
+  const books = await Book.find({ ...keyword }).sort(x);
+
+  if (books) {
+    res.json(books);
+  } else {
+    res.status(404);
+    throw new Error('Books not found!');
+  }
+});
+
 //  @desc        Get book description
 //  @route       GET /api/books/:id
 //  @access      public
@@ -98,6 +127,8 @@ const updateBook = asyncHandler(async (req, res) => {
     book.numOfPages = numOfPages;
     book.weight = weight;
 
+    book.price = (((100 - book.discount) * book.mrp) / 100).toFixed(2);
+
     const updatedBook = await book.save();
     res.json(updatedBook);
   } else {
@@ -171,4 +202,5 @@ export {
   updateBook,
   deleteBook,
   createBookReview,
+  getBooksBySorting,
 };

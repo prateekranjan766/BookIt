@@ -25,6 +25,10 @@ import {
   BOOK_CREATE_REVIEW_SUCCESS,
   BOOK_CREATE_REVIEW_FAIL,
   BOOK_CREATE_REVIEW_RESET,
+  BOOK_SCREEN_LIST_REQUEST,
+  BOOK_SCREEN_LIST_SUCCESS,
+  BOOK_SCREEN_LIST_FAIL,
+  BOOK_SCREEN_LIST_RESET,
 } from '../constants/bookConstants';
 
 export const bookTrendingListReducer = (state = { books: [] }, action) => {
@@ -122,6 +126,21 @@ export const bookCreateReviewReducer = (state = {}, action) => {
     case BOOK_CREATE_REVIEW_FAIL:
       return { loading: false, error: action.payload };
     case BOOK_CREATE_REVIEW_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const bookScreenListReducer = (state = { books: [] }, action) => {
+  switch (action.type) {
+    case BOOK_SCREEN_LIST_REQUEST:
+      return { loading: true, ...state };
+    case BOOK_SCREEN_LIST_SUCCESS:
+      return { loading: false, books: action.payload };
+    case BOOK_SCREEN_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    case BOOK_SCREEN_LIST_RESET:
       return {};
     default:
       return state;

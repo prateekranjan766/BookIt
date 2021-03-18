@@ -48,6 +48,7 @@ function App() {
           <Route exact path='/login' component={LoginScreen} />
           <Route exact path='/cart' component={CartScreen} />
           <Route exact path='/books/:id' component={BookDescriptionScreen} />
+          <Route path='/books/search/:keyword' component={BookScreen} />
           <Route exact path='/books' component={BookScreen} />
           <Route exact path='/' component={HomeScreen} />
         </Switch>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import SearchBox from './SearchBox';
@@ -63,7 +64,9 @@ const Header = ({ location }) => {
             </Navbar.Brand>
           </LinkContainer>
 
-          {location.pathname !== '/' && <SearchBox />}
+          {location.pathname !== '/' && (
+            <Route render={({ history }) => <SearchBox history={history} />} />
+          )}
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

@@ -11,20 +11,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../styles/BookScreen.scss';
 import Rupee from './../components/Rupee';
 import Rating from './../components/Rating';
-import { listTrendingBooks } from './../actions/bookActions';
+import { getBooksForBookScreen } from './../actions/bookActions';
 import FilterSidebar from './../components/FilterSidebar';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-const BookScreen = () => {
+const BookScreen = ({ match }) => {
+  const keyword = match.params.keyword;
+
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [sortBy, setSortBy] = useState('highest rating');
+  const [sortBy, setSortBy] = useState('highestRated');
 
   const dispatch = useDispatch();
 
-  const bookTrendingList = useSelector((state) => state.bookTrendingList);
-  const { books, loading, error } = bookTrendingList;
+  const bookScreenList = useSelector((state) => state.bookScreenList);
+  const { books, loading, error } = bookScreenList;
 
   const handleFilter = () => {
     if (toggleSidebar === true) {
@@ -41,8 +43,8 @@ const BookScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(listTrendingBooks('novels', 12));
-  }, []);
+    dispatch(getBooksForBookScreen(sortBy, keyword));
+  }, [dispatch, sortBy, keyword]);
 
   return (
     <>
@@ -75,14 +77,17 @@ const BookScreen = () => {
               onChange={(e) => setSortBy(e.target.value)}
               className='book-screen__sortby'
             >
-              <option value='highest rated'>Highest Rated</option>
-              <option value='price - low - high'>Price Low - High</option>
-              <option value='price - high - low'>Price High - Low</option>
+              <option value='highestRated'>Highest Rated</option>
+              <option value='price-low-high'>Price Low - High</option>
+              <option value='price-high-low'>Price High - Low</option>
             </FormControl>
           </Col>
         </Row>
 
         <Row className='books__section'>
+          {books && books.length === 0 && (
+            <Message variant='info'>No Books found!!</Message>
+          )}
           {loading === true ? (
             <Loader />
           ) : error ? (
@@ -112,7 +117,7 @@ const BookScreen = () => {
                         </Card.Title>
                         <Card.Title className='price'>
                           <Rupee />
-                          {book.mrp.toFixed(2)}
+                          {book.price.toFixed(2)}
                         </Card.Title>
                       </Col>
                     </Row>

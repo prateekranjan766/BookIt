@@ -9,6 +9,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 250,
+    price: 250,
     discount: 40, //in percent
     image: '/images/sherlock_holmes.jpg',
     numReviews: 5888,
@@ -31,6 +32,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 225,
+    price: 225,
     discount: 48, //in percent
     image: '/images/one-arranged-murder.jpeg',
     numReviews: 1186,
@@ -53,6 +55,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 350,
+    price: 350,
     discount: 46, //in percent
     image: '/images/the_alchemist.jpeg',
     numReviews: 45987,
@@ -75,6 +78,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 95,
+    price: 95,
     discount: 20, //in percent
     image: '/images/the_blue_umbrella.jpg',
     numReviews: 2945,
@@ -97,6 +101,7 @@ const books = [
     category: 'comics',
     genre: 'fiction',
     mrp: 250,
+    price: 250,
     discount: 0, //in percent
     image: '/images/spider-man.jpg',
     numReviews: 41,
@@ -119,6 +124,7 @@ const books = [
     category: 'comics',
     genre: 'fiction',
     mrp: 1350,
+    price: 1350,
     discount: 33, //in percent
     image: '/images/batman.jpg',
     numReviews: 101,
@@ -141,6 +147,7 @@ const books = [
     category: 'biography',
     genre: '',
     mrp: 150,
+    price: 150,
     discount: 34, //in percent
     image: '/images/the_diary_of_a_young_girl.jpg',
     numReviews: 8654,
@@ -163,6 +170,7 @@ const books = [
     category: 'educational',
     genre: '',
     mrp: 590,
+    price: 590,
     discount: 0, //in percent
     image: '/images/cracking_the_coding_interview.jpg',
     numReviews: 488,
@@ -185,6 +193,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 250,
+    price: 250,
     discount: 40, //in percent
     image: '/images/sherlock_holmes.jpg',
     numReviews: 5888,
@@ -207,6 +216,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 225,
+    price: 225,
     discount: 48, //in percent
     image: '/images/one-arranged-murder.jpeg',
     numReviews: 1186,
@@ -229,6 +239,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 350,
+    price: 350,
     discount: 46, //in percent
     image: '/images/the_alchemist.jpeg',
     numReviews: 45987,
@@ -251,6 +262,7 @@ const books = [
     category: 'novels',
     genre: 'fiction',
     mrp: 95,
+    price: 95,
     discount: 20, //in percent
     image: '/images/the_blue_umbrella.jpg',
     numReviews: 2945,
@@ -273,6 +285,7 @@ const books = [
     category: 'comics',
     genre: 'fiction',
     mrp: 250,
+    price: 250,
     discount: 0, //in percent
     image: '/images/spider-man.jpg',
     numReviews: 41,
@@ -295,6 +308,7 @@ const books = [
     category: 'comics',
     genre: 'fiction',
     mrp: 1350,
+    price: 1350,
     discount: 33, //in percent
     image: '/images/batman.jpg',
     numReviews: 101,
@@ -317,6 +331,7 @@ const books = [
     category: 'biography',
     genre: '',
     mrp: 150,
+    price: 150,
     discount: 34, //in percent
     image: '/images/the_diary_of_a_young_girl.jpg',
     numReviews: 8654,
@@ -339,6 +354,7 @@ const books = [
     category: 'educational',
     genre: '',
     mrp: 590,
+    price: 590,
     discount: 0, //in percent
     image: '/images/cracking_the_coding_interview.jpg',
     numReviews: 488,

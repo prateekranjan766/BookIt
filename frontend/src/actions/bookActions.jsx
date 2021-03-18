@@ -25,6 +25,10 @@ import {
   BOOK_CREATE_REVIEW_SUCCESS,
   BOOK_CREATE_REVIEW_FAIL,
   BOOK_CREATE_REVIEW_RESET,
+  BOOK_SCREEN_LIST_REQUEST,
+  BOOK_SCREEN_LIST_SUCCESS,
+  BOOK_SCREEN_LIST_FAIL,
+  BOOK_SCREEN_LIST_RESET,
 } from '../constants/bookConstants';
 import axios from 'axios';
 
@@ -183,6 +187,27 @@ export const createBookReview = (id, review) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BOOK_CREATE_REVIEW_FAIL,
+      payload: error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
+
+export const getBooksForBookScreen = (sortBy, keyword = '') => async (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: BOOK_SCREEN_LIST_REQUEST });
+  try {
+    const { data } = await axios.get(
+      `/api/books/bookScreen/${sortBy}?keyword=${keyword}`
+    );
+
+    dispatch({ type: BOOK_SCREEN_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: BOOK_SCREEN_LIST_FAIL,
       payload: error.response.data.message
         ? error.response.data.message
         : error.message,

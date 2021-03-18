@@ -61,9 +61,12 @@
 
   &__icon {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.6rem;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    top: 0.3rem;
+    right: 0.5rem;
+    font-size: 1.4rem;
   }
 }
 .brand-name-primary {

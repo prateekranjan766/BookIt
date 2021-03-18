@@ -79,7 +79,7 @@ const BookDescriptionScreen = ({ match, history }) => {
               <Rating
                 value={book.rating}
                 color={'#000'}
-                text={String(book.rating.toFixed(2))}
+                text={book.rating && String(book.rating.toFixed(2))}
               />
             </Row>
 
@@ -90,8 +90,14 @@ const BookDescriptionScreen = ({ match, history }) => {
                     <Col xs={6}>Price</Col>
 
                     <Col xs={6}>
-                      <Rupee />
-                      {book.mrp}
+                      <strong className='bigger-font'>
+                        <Rupee />
+                        {book.price && book.price.toFixed(2)}
+                      </strong>
+                      <del className='smaller-font pl-2 text-muted'>
+                        <Rupee />
+                        {book.mrp && book.mrp.toFixed(2)}
+                      </del>
                     </Col>
                   </Row>
                 </ListGroup.Item>

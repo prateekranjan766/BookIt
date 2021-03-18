@@ -7,6 +7,7 @@ import {
   updateBook,
   deleteBook,
   createBookReview,
+  getBooksBySorting,
 } from './../controller/bookController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
@@ -19,6 +20,7 @@ router
   .get(getBookDescription)
   .put(protect, admin, updateBook)
   .delete(protect, admin, deleteBook);
+router.route('/bookScreen/:sortBy').get(getBooksBySorting);
 router.route('/:category/:count').get(getTrendingBooksByCategory);
 router.route('/:id/reviews').post(protect, createBookReview);
 
